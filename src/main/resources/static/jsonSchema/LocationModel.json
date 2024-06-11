@@ -1,0 +1,24 @@
+{
+  "type" : "object",
+  "properties" : {
+    "locationName" : {
+      "type" : "string"
+    },
+    "locationFloor" : {
+      "type" : "integer"
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "roomNumber" : {
+      "type" : ["string", "null"]
+    },
+    "locationCategoryId" : {
+      "type" : "string"
+    },
+    "locationBuildingId" : {
+      "type" : "string"
+    }
+  },
+  "required" : ["locationName", "locationFloor", "description", "locationCategoryId", "locationBuildingId"]
+}

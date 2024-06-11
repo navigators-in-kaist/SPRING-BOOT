@@ -1,0 +1,26 @@
+{
+  "type" : "object",
+  "properties" : {
+    "fromLongitude" : {
+      "type" : "number",
+      "minimum" : 0,
+      "maximum" : 180
+    },
+    "fromLatitude" : {
+      "type" : "number",
+      "minimum" : -90,
+      "maximum" : 90
+    },
+    "toLongitude" : {
+      "type" : "number",
+      "minimum" : 0,
+      "maximum" : 180
+    },
+    "toLatitude" : {
+      "type" : "number",
+      "minimum" : -90,
+      "maximum" : 90
+    }
+  },
+  "required" : ["fromLongitude", "fromLatitude", "toLongitude", "toLatitude"]
+}
