@@ -19,7 +19,7 @@ public class KeycloakAPI {
     private static final String PROVEN_USER = "proven_user";
     private static final String UNPROVEN_USER = "unproven_user";
 
-    private final String apiBaseUrl = System.getenv("KEYCLOAK_URL") + ":" + System.getenv("KEYCLOAK_PORT");
+    private final String apiBaseUrl = System.getenv("KEYCLOAK_URL");
     private String appClientUuid = "none";
     private final String adminId = System.getenv("KEYCLOAK_ADMIN_ID");
     private final String adminPw = System.getenv("KEYCLOAK_ADMIN_PW");
