@@ -34,6 +34,7 @@ com/navigators/demo/local/auth/service/impl/AuthServiceImpl.class
 com/navigators/demo/global/dao/proveTrial/impl/ProveTrialDaoImpl.class
 com/navigators/demo/global/repository/ImageRepository.class
 com/navigators/demo/global/dto/ProveTrialDto.class
+com/navigators/demo/local/locationCategory/service/impl/LocationCategoryServiceImpl.class
 com/navigators/demo/global/entity/Contribution$ContributionBuilder.class
 com/navigators/demo/global/entity/UserSave$UserSaveBuilder.class
 com/navigators/demo/global/dto/EmailScheduleDto.class
@@ -82,11 +83,13 @@ com/navigators/demo/global/dao/building/impl/BuildingDaoImpl.class
 com/navigators/demo/validator/JsonValidator.class
 com/navigators/demo/global/entity/LocationCategory.class
 com/navigators/demo/global/repository/EmailScheduleRepository.class
+com/navigators/demo/local/locationCategory/controller/LocationCategoryController.class
 com/navigators/demo/DemoApplication.class
 com/navigators/demo/local/search/service/SearchService.class
 com/navigators/demo/adapter/api/keycloak/KeycloakAPI.class
 com/navigators/demo/local/save/service/impl/UserSaveServiceImpl.class
 com/navigators/demo/global/dto/UserDto.class
+com/navigators/demo/local/locationCategory/service/LocationCategoryService.class
 com/navigators/demo/global/dao/emailSchedule/impl/EmailScheduleDaoImpl.class
 com/navigators/demo/local/auth/service/AuthService.class
 com/navigators/demo/local/location/service/impl/LocationServiceImpl.class

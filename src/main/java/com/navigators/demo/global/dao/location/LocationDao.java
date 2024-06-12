@@ -11,4 +11,6 @@ public interface LocationDao {
 
     List<Location> getLocationListByCategoryId(String categoryId);
 
+    Integer getCountByCategoryId(String categoryId);
+
 }

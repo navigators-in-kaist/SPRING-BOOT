@@ -29,4 +29,9 @@ public class LocationDaoImpl implements LocationDao {
         return locationRepository.findByLocationCategoryId(categoryId);
     }
 
+    @Override
+    public Integer getCountByCategoryId(String categoryId) {
+        return locationRepository.findByLocationCategoryId(categoryId).size();
+    }
+
 }

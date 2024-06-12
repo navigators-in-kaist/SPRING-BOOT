@@ -6,6 +6,7 @@ import com.navigators.demo.global.repository.LocationCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -21,6 +22,11 @@ public class LocationCategoryDaoImpl implements LocationCategoryDao {
     @Override
     public Optional<LocationCategory> getEntityById(String categoryId) {
         return locationCategoryRepository.findById(categoryId);
+    }
+
+    @Override
+    public List<LocationCategory> getLocationCategoryList() {
+        return locationCategoryRepository.findAll();
     }
 
 }
