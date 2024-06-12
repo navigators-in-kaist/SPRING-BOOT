@@ -16,11 +16,13 @@ com/navigators/demo/global/repository/LocationCategoryRepository.class
 com/navigators/demo/local/route/controller/RouteController.class
 com/navigators/demo/global/entity/Building$BuildingBuilder.class
 com/navigators/demo/global/dao/locationCategory/impl/LocationCategoryDaoImpl.class
+com/navigators/demo/global/dao/userSave/UserSaveDao.class
 com/navigators/demo/codes/ContributionStatusCode.class
 com/navigators/demo/global/dto/ProveTrialDto$ProveTrialDtoBuilder.class
 com/navigators/demo/global/dao/building/BuildingDao.class
 com/navigators/demo/codes/ContributionType.class
 com/navigators/demo/global/entity/Location.class
+com/navigators/demo/local/save/controller/UserSaveController.class
 com/navigators/demo/global/dto/SearchHistoryDto$SearchHistoryDtoBuilder.class
 com/navigators/demo/global/dao/locationCategory/LocationCategoryDao.class
 com/navigators/demo/global/dto/LocationDto.class
@@ -57,6 +59,8 @@ com/navigators/demo/global/entity/EmailSchedule$EmailScheduleBuilder.class
 com/navigators/demo/global/dao/contribution/impl/ContributionDaoImpl.class
 com/navigators/demo/local/location/service/LocationService.class
 com/navigators/demo/global/repository/UserRepository.class
+com/navigators/demo/global/dao/userSave/impl/UserSaveDaoImpl.class
+com/navigators/demo/local/save/service/UserSaveService.class
 com/navigators/demo/codes/UserStatusCode.class
 com/navigators/demo/global/dto/AdminDto$AdminDtoBuilder.class
 com/navigators/demo/global/repository/ContributionRepository.class
@@ -73,6 +77,7 @@ com/navigators/demo/global/entity/LocationCategory.class
 com/navigators/demo/global/repository/EmailScheduleRepository.class
 com/navigators/demo/DemoApplication.class
 com/navigators/demo/adapter/api/keycloak/KeycloakAPI.class
+com/navigators/demo/local/save/service/impl/UserSaveServiceImpl.class
 com/navigators/demo/global/dto/UserDto.class
 com/navigators/demo/global/dao/emailSchedule/impl/EmailScheduleDaoImpl.class
 com/navigators/demo/local/auth/service/AuthService.class
@@ -90,6 +95,7 @@ com/navigators/demo/global/entity/LocationCategory$LocationCategoryBuilder.class
 com/navigators/demo/global/dao/emailSchedule/EmailScheduleDao.class
 com/navigators/demo/adapter/api/tmap/TMapAPI.class
 com/navigators/demo/util/EmailContentGenerator.class
+com/navigators/demo/global/repository/UserSaveRepository.class
 com/navigators/demo/global/entity/Contribution.class
 com/navigators/demo/global/entity/UserSave.class
 com/navigators/demo/global/dao/location/LocationDao.class
