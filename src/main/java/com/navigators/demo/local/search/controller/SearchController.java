@@ -33,6 +33,24 @@ public class SearchController {
         this.searchService = searchService;
     }
 
+
+    /** Note. The payload will match with following fields
+     *  1.  building name
+     *  2.  building alias
+     *  3.  building official code
+     *  4.  location name
+     *  5.  location room number
+     * */
+    @GetMapping("")
+    public ResponseEntity<Map<String, Object>> searchAnything(@RequestParam String payload) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* service call */
+        Map<String, Object> resultMap = searchService.searchAnything(payload);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
     @GetMapping("/history")
     public ResponseEntity<Map<String, Object>> getSearchHistory(@RequestHeader Map<String, String> requestHeader) {
         Map<String, Object> responseBody = new HashMap<>();

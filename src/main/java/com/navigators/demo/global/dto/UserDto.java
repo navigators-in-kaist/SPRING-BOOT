@@ -3,6 +3,9 @@ package com.navigators.demo.global.dto;
 import com.navigators.demo.global.entity.User;
 import lombok.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +33,18 @@ public class UserDto {
                 .userEmail(userEmail)
                 .userStatus(userStatus)
                 .build();
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> infoMap = new HashMap<>();
+
+        infoMap.put("userId", userId);
+        infoMap.put("userName", userName);
+        infoMap.put("isProvenUser", isProvenUser);
+        infoMap.put("userEmail", userEmail);
+        infoMap.put("userStatus", userStatus);
+
+        return infoMap;
     }
 
 }

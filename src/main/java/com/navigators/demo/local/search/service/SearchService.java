@@ -6,5 +6,6 @@ public interface SearchService {
 
     Map<String, Object> getSearchHistoryList(String userId);
     Map<String, Object> deleteSearchHistory(String userId, String historyId);
+    Map<String, Object> searchAnything(String payload);
 
 }

@@ -11,4 +11,5 @@ public interface LocationRepository extends JpaRepository<Location, String> {
     Optional<Location> findById(String locationId);
 
     List<Location> findByLocationCategoryId(String categoryId);
+    List<Location> findByLocationNameContainingOrRoomNumberContaining(String payload1, String payload2);
 }

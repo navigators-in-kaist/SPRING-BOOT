@@ -15,5 +15,5 @@
       "type" : "string"
     }
   },
-  "required" : ["userId", "password", "userName"]
+  "required" : ["userName"]
 }

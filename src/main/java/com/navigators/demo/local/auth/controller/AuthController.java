@@ -67,6 +67,13 @@ public class AuthController {
             return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
         }
 
+        /** Status */
+        if (!dataExistenceValidator.isAdminACTIVE(adminId)) {
+            responseBody.put("error_code", ErrorCode.ROLE_UNAUTHORIZED);
+            responseBody.put("reason", "The given admin is not in active status.");
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+        }
+
         /* call keycloak */
         Map<String, String> resultMap;
         try {
@@ -116,6 +123,13 @@ public class AuthController {
             return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
         }
 
+        /** STATUS */
+        if (!dataExistenceValidator.isUserACTIVE(userId)) {
+            responseBody.put("error_code", ErrorCode.ROLE_UNAUTHORIZED);
+            responseBody.put("reason", "The given user is not in active status.");
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+        }
+
         /* call keycloak */
         Map<String, String> resultMap;
         try {
@@ -149,6 +163,12 @@ public class AuthController {
         if (requestBody.get("password") == null) {
             responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
             responseBody.put("reason", "The user password is a mandatory field.");
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+        }
+
+        if (requestBody.get("userId") == null) {
+            responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
+            responseBody.put("reason", "The user id is a mandatory field.");
             return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
         }
 

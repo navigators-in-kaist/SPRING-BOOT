@@ -7,6 +7,7 @@ import com.navigators.demo.global.repository.ContributionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -40,6 +41,11 @@ public class BuildingDaoImpl implements BuildingDao {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<Building> searchByPayload(String payload) {
+        return buildingRepository.findByOfficialCodeContainingOrBuildingNameContainingOrBuildingAliasContaining(payload, payload, payload);
     }
 
 }

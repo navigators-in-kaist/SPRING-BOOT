@@ -282,7 +282,7 @@ public class KeycloakAPI {
         }
     }
 
-    public void changePassword(String adminUuid, String newPassword) throws Exception {
+    public void changePassword(String userUuid, String newPassword) throws Exception {
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         String requestBody = "{"
@@ -295,7 +295,7 @@ public class KeycloakAPI {
         headers.add("Authorization", "Bearer " + this.accessToken);
         try {
             ResponseEntity<Map> response = rt.exchange(
-                    apiBaseUrl + "/admin/realms/NAV/users/" + adminUuid,
+                    apiBaseUrl + "/admin/realms/NAV/users/" + userUuid,
                     HttpMethod.PUT,
                     entity,
                     Map.class

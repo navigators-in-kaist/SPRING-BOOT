@@ -30,6 +30,11 @@ public class LocationDaoImpl implements LocationDao {
     }
 
     @Override
+    public List<Location> searchLocationByPayload(String payload) {
+        return locationRepository.findByLocationNameContainingOrRoomNumberContaining(payload, payload);
+    }
+
+    @Override
     public Integer getCountByCategoryId(String categoryId) {
         return locationRepository.findByLocationCategoryId(categoryId).size();
     }

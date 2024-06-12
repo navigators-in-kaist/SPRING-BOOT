@@ -2,6 +2,7 @@ package com.navigators.demo.global.dao.building;
 
 import com.navigators.demo.global.entity.Building;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BuildingDao {
@@ -11,4 +12,5 @@ public interface BuildingDao {
     boolean checkOfficialCodeDuplication(String payload);
     boolean checkOfficialCodeDuplicationExceptForSelf(String buildingId, String payload);
 
+    List<Building> searchByPayload(String payload);
 }

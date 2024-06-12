@@ -64,6 +64,7 @@ com/navigators/demo/global/entity/SearchHistory$SearchHistoryBuilder.class
 com/navigators/demo/global/entity/EmailSchedule$EmailScheduleBuilder.class
 com/navigators/demo/global/dao/searchHistory/impl/SearchHistoryDaoImpl.class
 com/navigators/demo/global/dao/contribution/impl/ContributionDaoImpl.class
+com/navigators/demo/local/user/service/impl/UserServiceImpl.class
 com/navigators/demo/local/location/service/LocationService.class
 com/navigators/demo/global/repository/UserRepository.class
 com/navigators/demo/global/repository/SearchHistoryRepository.class
@@ -101,12 +102,14 @@ com/navigators/demo/global/dao/image/ImageDao.class
 com/navigators/demo/local/building/controller/BuildingController.class
 com/navigators/demo/util/SHA256.class
 com/navigators/demo/global/dto/ImageDto.class
+com/navigators/demo/local/user/service/UserService.class
 com/navigators/demo/global/repository/AdminRepository.class
 com/navigators/demo/global/entity/User$UserBuilder.class
 com/navigators/demo/scheduler/EmailScheduler.class
 com/navigators/demo/local/search/service/impl/SearchServiceImpl.class
 com/navigators/demo/global/dto/ContributionDto$ContributionDtoBuilder.class
 com/navigators/demo/global/entity/LocationCategory$LocationCategoryBuilder.class
+com/navigators/demo/local/user/controller/UserController.class
 com/navigators/demo/global/dao/emailSchedule/EmailScheduleDao.class
 com/navigators/demo/adapter/api/tmap/TMapAPI.class
 com/navigators/demo/util/EmailContentGenerator.class

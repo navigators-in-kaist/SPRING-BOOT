@@ -11,5 +11,6 @@ public interface BuildingRepository extends JpaRepository<Building, String> {
     Optional<Building> findById(String buildingId);
 
     List<Building> findByOfficialCode(String officialCode);
+    List<Building> findByOfficialCodeContainingOrBuildingNameContainingOrBuildingAliasContaining(String pl1, String pl2, String pl3);
 
 }

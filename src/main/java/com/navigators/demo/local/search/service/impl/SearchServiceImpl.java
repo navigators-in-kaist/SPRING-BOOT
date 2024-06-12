@@ -3,12 +3,10 @@ package com.navigators.demo.local.search.service.impl;
 import com.navigators.demo.codes.ErrorCode;
 import com.navigators.demo.global.dao.building.BuildingDao;
 import com.navigators.demo.global.dao.location.LocationDao;
+import com.navigators.demo.global.dao.locationCategory.LocationCategoryDao;
 import com.navigators.demo.global.dao.searchHistory.SearchHistoryDao;
 import com.navigators.demo.global.dao.user.UserDao;
-import com.navigators.demo.global.entity.Building;
-import com.navigators.demo.global.entity.Location;
-import com.navigators.demo.global.entity.SearchHistory;
-import com.navigators.demo.global.entity.User;
+import com.navigators.demo.global.entity.*;
 import com.navigators.demo.local.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,16 +25,19 @@ public class SearchServiceImpl implements SearchService {
     private final UserDao userDao;
     private final BuildingDao buildingDao;
     private final LocationDao locationDao;
+    private final LocationCategoryDao locationCategoryDao;
 
     @Autowired
     public SearchServiceImpl(SearchHistoryDao searchHistoryDao,
                              UserDao userDao,
                              BuildingDao buildingDao,
-                             LocationDao locationDao) {
+                             LocationDao locationDao,
+                             LocationCategoryDao locationCategoryDao) {
         this.searchHistoryDao = searchHistoryDao;
         this.userDao = userDao;
         this.buildingDao = buildingDao;
         this.locationDao = locationDao;
+        this.locationCategoryDao = locationCategoryDao;
     }
 
     @Override
@@ -108,6 +109,45 @@ public class SearchServiceImpl implements SearchService {
         /* no error */
         Map<String, Object> item = new HashMap<>();
         item.put("success", true);
+        resultMap.put("item", item);
+        resultMap.put("errorCode", ErrorCode.NO_ERROR);
+        resultMap.put("httpStatusCode", HttpStatus.OK);
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> searchAnything(String payload) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        /** buildings */
+        List<Building> buildingResults = buildingDao.searchByPayload(payload);
+
+        /** locations */
+        List<Location> locationList = locationDao.searchLocationByPayload(payload);
+        /* additional */
+        List<Map<String, Object>> locationResults = new ArrayList<>();
+        for (Location location : locationList) {
+            /* category */
+            LocationCategory targetCategory = locationCategoryDao.getEntityById(location.getLocationCategoryId()).get();
+            /* building */
+            Building targetBuilding = buildingDao.getEntityById(location.getLocationBuildingId()).get();
+            Map<String, Object> newInfoMap = location.toDto().toMap(
+                    0.0,
+                    targetCategory.getCategoryName(),
+                    targetBuilding.getBuildingName(),
+                    targetBuilding.getBuildingAlias(),
+                    targetBuilding.getLongitude(),
+                    targetBuilding.getLatitude()
+            );
+            newInfoMap.remove("distanceFromCurrentPosition");
+            locationResults.add(newInfoMap);
+        }
+
+        /* no error */
+        Map<String, Object> item = new HashMap<>();
+        item.put("payload", payload);
+        item.put("locationResults", locationResults);
+        item.put("buildingResults", buildingResults);
         resultMap.put("item", item);
         resultMap.put("errorCode", ErrorCode.NO_ERROR);
         resultMap.put("httpStatusCode", HttpStatus.OK);

@@ -10,6 +10,7 @@ public interface LocationDao {
     Optional<Location> getEntityById(String locationId);
 
     List<Location> getLocationListByCategoryId(String categoryId);
+    List<Location> searchLocationByPayload(String payload);
 
     Integer getCountByCategoryId(String categoryId);
 

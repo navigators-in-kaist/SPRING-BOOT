@@ -1,5 +1,8 @@
 package com.navigators.demo.validator;
 
+import com.navigators.demo.codes.UserStatusCode;
+import com.navigators.demo.global.entity.Admin;
+import com.navigators.demo.global.entity.User;
 import com.navigators.demo.global.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -69,4 +72,16 @@ public class DataExistenceValidator {
         return searchHistoryRepository.findById(historyId).isPresent();
     }
 
+
+    public boolean isUserACTIVE(String userId) {
+        User targetUser = userRepository.findByUserId(userId).get();
+
+        return targetUser.getUserStatus().equals(UserStatusCode.ACTIVE);
+    }
+
+    public boolean isAdminACTIVE(String adminId) {
+        Admin targetAdmin = adminRepository.findByAdminId(adminId).get();
+
+        return !targetAdmin.getAdminName().startsWith("_Deleted");
+    }
 }
