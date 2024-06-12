@@ -31,7 +31,7 @@ public class UserSaveDaoImpl implements UserSaveDao {
 
     @Override
     public void deleteDto(UserSaveDto userSaveDto) {
-        userSaveRepository.save(userSaveDto.toEntity());
+        userSaveRepository.delete(userSaveDto.toEntity());
     }
 
 }

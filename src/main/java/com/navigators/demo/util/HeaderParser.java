@@ -1,6 +1,7 @@
 package com.navigators.demo.util;
 
 import lombok.NoArgsConstructor;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class HeaderParser {
         /* String to Json object */
         JSONObject jsonObject = new JSONObject(payload);
         /* get preferred_username */
-        roleName = ((ArrayList<String>) ((JSONObject) ((JSONObject) jsonObject.get("resource_access")).get("APP")).get("roles")).get(0);
+        roleName = (String) ((JSONArray) ((JSONObject) ((JSONObject) jsonObject.get("resource_access")).get("APP")).get("roles")).get(0);
 
         return roleName;
     }

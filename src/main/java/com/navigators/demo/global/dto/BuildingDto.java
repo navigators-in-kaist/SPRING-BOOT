@@ -3,6 +3,10 @@ package com.navigators.demo.global.dto;
 import com.navigators.demo.global.entity.Building;
 import lombok.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,4 +37,18 @@ public class BuildingDto {
                 .build();
     }
 
+    public Map<String, Object> toMap() {
+        Map<String, Object> infoMap = new HashMap<>();
+
+        infoMap.put("buildingId", buildingId);
+        infoMap.put("officialCode", officialCode);
+        infoMap.put("buildingName", buildingName);
+        infoMap.put("buildingAlias", buildingAlias);
+        infoMap.put("description", description);
+        infoMap.put("maxFloor", maxFloor);
+        infoMap.put("longitude", longitude);
+        infoMap.put("latitude", latitude);
+
+        return infoMap;
+    }
 }

@@ -14,6 +14,7 @@ public class DataExistenceValidator {
     private final LocationCategoryRepository locationCategoryRepository;
     private final LocationRepository locationRepository;
     private final BuildingRepository buildingRepository;
+    private final SearchHistoryRepository searchHistoryRepository;
 
 
     @Autowired
@@ -23,7 +24,8 @@ public class DataExistenceValidator {
                                   ContributionRepository contributionRepository,
                                   LocationCategoryRepository locationCategoryRepository,
                                   LocationRepository locationRepository,
-                                  BuildingRepository buildingRepository) {
+                                  BuildingRepository buildingRepository,
+                                  SearchHistoryRepository searchHistoryRepository) {
         this.userRepository = userRepository;
         this.proveTrialRepository = proveTrialRepository;
         this.adminRepository = adminRepository;
@@ -31,6 +33,7 @@ public class DataExistenceValidator {
         this.locationCategoryRepository = locationCategoryRepository;
         this.locationRepository = locationRepository;
         this.buildingRepository = buildingRepository;
+        this.searchHistoryRepository = searchHistoryRepository;
     }
 
 
@@ -60,6 +63,10 @@ public class DataExistenceValidator {
 
     public boolean isLocationExist(String locationId) {
         return locationRepository.findById(locationId).isPresent();
+    }
+
+    public boolean isSearchHistoryExist(String historyId) {
+        return searchHistoryRepository.findById(historyId).isPresent();
     }
 
 }
