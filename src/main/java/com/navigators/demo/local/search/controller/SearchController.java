@@ -38,7 +38,7 @@ public class SearchController {
         Map<String, Object> responseBody = new HashMap<>();
 
         /* get userId */
-        String userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+        String userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
         if (!dataExistenceValidator.isUserExist(userId)) {
             responseBody.put("error_code", ErrorCode.GET_INVALID_PARAM);
             responseBody.put("reason", "The given user does not exists.");
@@ -64,7 +64,7 @@ public class SearchController {
         }
 
         /* get userId */
-        String userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+        String userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
         if (!dataExistenceValidator.isUserExist(userId)) {
             responseBody.put("error_code", ErrorCode.GET_INVALID_PARAM);
             responseBody.put("reason", "The given user does not exists.");

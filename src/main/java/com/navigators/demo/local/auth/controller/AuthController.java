@@ -163,7 +163,7 @@ public class AuthController {
         Map<String, Object> responseBody = new HashMap<>();
 
         /* check user existence */
-        String userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+        String userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
         if (!dataExistenceValidator.isUserExist(userId)) {
             responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
             responseBody.put("reason", "The given user does not exists.");
@@ -189,7 +189,7 @@ public class AuthController {
         }
 
         /* check user existence */
-        String userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+        String userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
         if (!dataExistenceValidator.isUserExist(userId)) {
             responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
             responseBody.put("reason", "The given user does not exists.");

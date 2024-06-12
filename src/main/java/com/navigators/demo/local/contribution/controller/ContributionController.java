@@ -88,7 +88,7 @@ public class ContributionController {
 
         /* get userId */
         String userId = "";
-        userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+        userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
         if (!dataExistenceValidator.isUserExist(userId)) {
             responseBody.put("error_code", ErrorCode.GET_INVALID_PARAM);
             responseBody.put("reason", "The given user does not exists.");
@@ -114,7 +114,7 @@ public class ContributionController {
 
         /* get userId */
         String userId = "";
-        userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+        userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
         if (!dataExistenceValidator.isUserExist(userId)) {
             responseBody.put("error_code", ErrorCode.GET_INVALID_PARAM);
             responseBody.put("reason", "The given user does not exists.");
@@ -165,7 +165,7 @@ public class ContributionController {
 
         /* get userId */
         String userId = "";
-        userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+        userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
         if (!dataExistenceValidator.isUserExist(userId)) {
             responseBody.put("error_code", ErrorCode.GET_INVALID_PARAM);
             responseBody.put("reason", "The given user does not exists.");

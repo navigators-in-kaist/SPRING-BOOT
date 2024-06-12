@@ -48,7 +48,7 @@ public class BuildingController {
 
         String coverage = "";
         /* coverage */
-        String roleName = parser.getRoleNameByAccessToken(requestHeader.get("authorization"));
+        String roleName = parser.getRoleNameByAccessToken(requestHeader.get("kauthorization"));
         if (roleName.equals("None")) {
             responseBody.put("error_code", ErrorCode.ROLE_UNAUTHORIZED);
             responseBody.put("reason", "The given request header does not have role information.");
@@ -64,7 +64,7 @@ public class BuildingController {
         /* get userId */
         String userId = "";
         if (coverage.equals("user")) {
-            userId = parser.getUserIdByAccessToken(requestHeader.get("authorization"));
+            userId = parser.getUserIdByAccessToken(requestHeader.get("kauthorization"));
             if (!dataExistenceValidator.isUserExist(userId)) {
                 responseBody.put("error_code", ErrorCode.GET_INVALID_PARAM);
                 responseBody.put("reason", "The given user does not exists.");
