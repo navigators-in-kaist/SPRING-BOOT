@@ -159,7 +159,6 @@ public class AuthController {
 
 
     @PostMapping("/prove")
-    @RolesAllowed({ "unproven_user", "proven_user" })
     public ResponseEntity<Map<String, Object>> tryProve(@RequestHeader Map<String, String> requestHeader) {
         Map<String, Object> responseBody = new HashMap<>();
 
@@ -177,7 +176,6 @@ public class AuthController {
     }
 
     @PostMapping("/prove/{trialId}")
-    @RolesAllowed({ "unproven_user", "proven_user" })
     public ResponseEntity<Map<String, Object>> submitProve(@RequestHeader Map<String, String> requestHeader,
                                                            @RequestBody Map<String, String> requestBody,
                                                            @PathVariable String trialId) {

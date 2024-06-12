@@ -33,7 +33,6 @@ public class RouteController {
     }
 
     @PostMapping("")
-    @RolesAllowed({ "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> getRoute(@RequestBody Map<String, Object> requestBody) {
         Map<String, Object> responseBody = new HashMap<>();
 

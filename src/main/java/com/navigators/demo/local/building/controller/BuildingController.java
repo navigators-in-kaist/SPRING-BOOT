@@ -35,7 +35,6 @@ public class BuildingController {
 
 
     @GetMapping("/{buildingId}")
-    @RolesAllowed({ "admin", "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> getBuildingDetail(@RequestHeader Map<String, String> requestHeader,
                                                                  @PathVariable String buildingId) {
         Map<String, Object> responseBody = new HashMap<>();

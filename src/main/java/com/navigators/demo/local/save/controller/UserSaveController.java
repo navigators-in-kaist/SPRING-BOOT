@@ -34,7 +34,6 @@ public class UserSaveController {
     }
 
     @PostMapping("")
-    @RolesAllowed({ "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> addUserSave(@RequestHeader Map<String, String> requestHeader,
                                                            @RequestBody Map<String, Object> requestBody) {
 
@@ -78,7 +77,6 @@ public class UserSaveController {
 
 
     @PostMapping("/undo")
-    @RolesAllowed({ "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> deleteUserSave(@RequestHeader Map<String, String> requestHeader,
                                                            @RequestBody Map<String, Object> requestBody) {
 

@@ -34,7 +34,6 @@ public class SearchController {
     }
 
     @GetMapping("/history")
-    @RolesAllowed({ "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> getSearchHistory(@RequestHeader Map<String, String> requestHeader) {
         Map<String, Object> responseBody = new HashMap<>();
 
@@ -53,7 +52,6 @@ public class SearchController {
 
 
     @DeleteMapping("/history/{historyId}")
-    @RolesAllowed({ "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> deleteSearchHistory(@RequestHeader Map<String, String> requestHeader,
                                                                    @PathVariable String historyId) {
         Map<String, Object> responseBody = new HashMap<>();

@@ -34,7 +34,6 @@ public class ContributionController {
     }
 
     @GetMapping("")
-    @RolesAllowed({ "admin", "proven_user" })
     public ResponseEntity<Map<String, Object>> getContributionList(@RequestHeader Map<String, String> requestHeader) {
         Map<String, Object> responseBody = new HashMap<>();
 
@@ -76,7 +75,6 @@ public class ContributionController {
 
 
     @DeleteMapping("/{contributionId}")
-    @RolesAllowed({ "proven_user" })
     public ResponseEntity<Map<String, Object>> deleteContribution(@RequestHeader Map<String, String> requestHeader,
                                                                   @PathVariable String contributionId) {
         Map<String, Object> responseBody = new HashMap<>();
@@ -104,7 +102,6 @@ public class ContributionController {
 
 
     @PostMapping("/building")
-    @RolesAllowed({ "proven_user" })
     public ResponseEntity<Map<String, Object>> addBuildingContribution(@RequestHeader Map<String, String> requestHeader,
                                                                        @RequestBody Map<String, Object> requestBody) {
         Map<String, Object> responseBody = new HashMap<>();
@@ -131,7 +128,6 @@ public class ContributionController {
 
 
     @GetMapping("/building/official-code")
-    @RolesAllowed({ "proven_user", "admin" })
     public ResponseEntity<Map<String, Object>> checkOfficialCodeDuplication(@RequestParam String payload) {
         Map<String, Object> responseBody = new HashMap<>();
 
@@ -142,7 +138,6 @@ public class ContributionController {
 
 
     @PostMapping("/location")
-    @RolesAllowed({ "proven_user" })
     public ResponseEntity<Map<String, Object>> addLocationContribution(@RequestHeader Map<String, String> requestHeader,
                                                                        @RequestBody Map<String, Object> requestBody) {
         Map<String, Object> responseBody = new HashMap<>();

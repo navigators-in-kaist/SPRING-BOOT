@@ -35,7 +35,6 @@ public class LocationController {
 
 
     @GetMapping("/category/{categoryId}")
-    @RolesAllowed({ "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> getLocationListWithCategory(@PathVariable String categoryId,
                                                                            @RequestParam String latitude,
                                                                            @RequestParam String longitude) {
@@ -80,7 +79,6 @@ public class LocationController {
 
 
     @GetMapping("/{locationId}")
-    @RolesAllowed({ "admin", "proven_user", "unproven_user" })
     public ResponseEntity<Map<String, Object>> getLocationDetail(@RequestHeader Map<String, String> requestHeader,
                                                                  @PathVariable String locationId) {
         Map<String, Object> responseBody = new HashMap<>();

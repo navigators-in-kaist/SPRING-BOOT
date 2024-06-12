@@ -30,41 +30,14 @@ public class KeycloakAPI {
     private static final String PROVEN_USER = "proven_user";
     private static final String UNPROVEN_USER = "unproven_user";
 
-    private final String apiBaseUrl = System.getenv("KEYCLOAK_URL");
+    private final String apiBaseUrl = System.getenv("KEYCLOAK_URL") + ":" + System.getenv("KEYCLOAK_PORT");
     private String appClientUuid = "none";
     private final String adminId = System.getenv("KEYCLOAK_ADMIN_ID");
     private final String adminPw = System.getenv("KEYCLOAK_ADMIN_PW");
     private String accessToken = "none";
 
-    private RestTemplate craftRestTemplateTLS() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-
-        /* trust all certificate */
-        TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-
-        /* craft ssl context */
-        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
-                .loadTrustMaterial(null, acceptingTrustStrategy)
-                .build();
-
-        /* for SSL handshake */
-        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
-
-        CloseableHttpClient httpClient = HttpClients.custom()
-                .setSSLSocketFactory(csf)
-                .build();
-
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setHttpClient(httpClient);
-
-        /* set timeout */
-        requestFactory.setConnectTimeout(3 * 1000);
-        requestFactory.setReadTimeout(3 * 1000);
-
-        return new RestTemplate(requestFactory);
-    }
-
     private String getUuidOfAppRole(String roleName) throws Exception {
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(headers);
@@ -86,7 +59,7 @@ public class KeycloakAPI {
     }
 
     private void updateClientUuids() throws Exception {
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(headers);
@@ -119,7 +92,7 @@ public class KeycloakAPI {
         log.info("login start...");
         Map<String, String> resultMap;
 
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         HttpHeaders headers = new HttpHeaders();
         params.add("client_id", "APP");
@@ -157,7 +130,7 @@ public class KeycloakAPI {
     public void refreshAccessToken() throws Exception {
         log.info("keycloak init...");
 
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         HttpHeaders headers = new HttpHeaders();
         params.add("client_id", "admin-cli");
@@ -189,7 +162,7 @@ public class KeycloakAPI {
     }
 
     public void addUser(String userName, String password) throws Exception {
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         String requestBody = "{\"username\": \""
                 + userName
@@ -215,7 +188,7 @@ public class KeycloakAPI {
     }
 
     private String getCurrentClientRole(String userUuid) throws Exception {
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         headers.add("Authorization", "Bearer " + this.accessToken);
@@ -238,7 +211,7 @@ public class KeycloakAPI {
     }
 
     public String getUserUuid(String userName) throws Exception {
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + this.accessToken);
         HttpEntity<Object> entity = new HttpEntity<>(headers);
@@ -261,7 +234,7 @@ public class KeycloakAPI {
 
     public void deleteClientRoleMapping(String userUuid) throws Exception {
         String prevRoles = getCurrentClientRole(userUuid);
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         headers.add("Authorization", "Bearer " + this.accessToken);
@@ -282,7 +255,7 @@ public class KeycloakAPI {
     }
 
     public void addAppClientRoleMappingForProven(String userUuid) throws Exception {
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         String appUserRoleObj = "[{"
                 + "\"id\" :"
@@ -310,7 +283,7 @@ public class KeycloakAPI {
     }
 
     public void changePassword(String adminUuid, String newPassword) throws Exception {
-        RestTemplate rt = craftRestTemplateTLS();
+        RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         String requestBody = "{"
                 + "\"credentials\": [{\"type\": \"password\", \"value\": \""
