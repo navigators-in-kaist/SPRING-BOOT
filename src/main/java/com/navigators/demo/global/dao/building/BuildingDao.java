@@ -17,4 +17,5 @@ public interface BuildingDao {
     List<Building> getAll();
 
     void saveDto(BuildingDto buildingDto);
+    void deleteDto(BuildingDto buildingDto);
 }

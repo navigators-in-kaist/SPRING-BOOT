@@ -10,5 +10,7 @@ public interface ContributionService {
     Map<String, Object> addBuildingContribution(String userId, Map<String, Object> requestBody);
     Map<String, Object> addLocationContribution(String userId, Map<String, Object> requestBody);
     Map<String, Object> checkOfficialCodeDuplication(String payload);
+    Map<String, Object> approveContribution(String contributionId);
+    Map<String, Object> rejectContribution(String contributionId);
 
 }

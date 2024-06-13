@@ -132,4 +132,21 @@ public class BuildingController {
         return responseFormatter.getMapResponseEntity(responseBody, resultMap);
     }
 
+
+    @DeleteMapping("/{buildingId}")
+    public ResponseEntity<Map<String, Object>> deleteBuilding(@PathVariable String buildingId) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isBuildingExist(buildingId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = buildingService.deleteBuilding(buildingId);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.navigators.demo.global.dao.image.impl;
 
 import com.navigators.demo.global.dao.image.ImageDao;
+import com.navigators.demo.global.dto.ImageDto;
 import com.navigators.demo.global.entity.Image;
 import com.navigators.demo.global.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,18 @@ public class ImageDaoImpl implements ImageDao {
         }
     }
 
+    @Override
+    public void deleteDto(ImageDto imageDto) {
+        imageRepository.delete(imageDto.toEntity());
+    }
+
+    @Override
+    public void deleteById(String imageId) {
+        imageRepository.deleteById(imageId);
+    }
+
+    @Override
+    public void saveDto(ImageDto imageDto) {
+        imageRepository.save(imageDto.toEntity());
+    }
 }

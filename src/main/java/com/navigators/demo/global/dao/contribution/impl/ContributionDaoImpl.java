@@ -44,4 +44,9 @@ public class ContributionDaoImpl implements ContributionDao {
     public void saveDto(ContributionDto contributionDto) {
         contributionRepository.save(contributionDto.toEntity());
     }
+
+    @Override
+    public List<Contribution> getContributionListByBuildingId(String buildingId) {
+        return contributionRepository.findByContributionBuildingId(buildingId);
+    }
 }

@@ -11,5 +11,6 @@ public interface SearchHistoryRepository extends JpaRepository<SearchHistory, St
     Optional<SearchHistory> findById(String historyId);
 
     List<SearchHistory> findBySearchHistoryUserIdOrderByCreatedAtDesc(String userUuid);
-
+    List<SearchHistory> findBySearchHistoryBuildingId(String buildingId);
+    List<SearchHistory> findBySearchHistoryLocationId(String locationId);
 }

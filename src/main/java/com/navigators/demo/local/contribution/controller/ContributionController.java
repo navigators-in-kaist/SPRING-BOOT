@@ -177,4 +177,37 @@ public class ContributionController {
         return responseFormatter.getMapResponseEntity(responseBody, resultMap);
     }
 
+
+    @PostMapping("/{contributionId}/approve")
+    public ResponseEntity<Map<String, Object>> approveContribution(@PathVariable String contributionId) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isContributionExist(contributionId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = contributionService.approveContribution(contributionId);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
+    @PostMapping("/{contributionId}/reject")
+    public ResponseEntity<Map<String, Object>> rejectContribution(@PathVariable String contributionId) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isContributionExist(contributionId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = contributionService.rejectContribution(contributionId);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
 }

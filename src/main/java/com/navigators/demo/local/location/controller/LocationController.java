@@ -126,4 +126,91 @@ public class LocationController {
         return responseFormatter.getMapResponseEntity(responseBody, resultMap);
     }
 
+
+    @PostMapping("")
+    public ResponseEntity<Map<String, Object>> addLocation(@RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* request body validation : LocationModel.json */
+        Map<String, String> validateResultMap = validator.validate("LocationModel.json", requestBody);
+        if (validateResultMap.get("status").equals("fail") || validateResultMap.get("status").equals("error")) {
+            return validator.formatResponseBody(validateResultMap);
+        }
+
+        /* request body parameter existence */
+        /* locationCategoryId */
+        if (!dataExistenceValidator.isLocationCategoryExist((String) requestBody.get("locationCategoryId"))) {
+            responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
+            responseBody.put("reason", "The given \"locationCategoryId\" does not exists.");
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+        }
+
+        /* locationBuildingId */
+        if (!dataExistenceValidator.isBuildingExist((String) requestBody.get("locationBuildingId"))) {
+            responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
+            responseBody.put("reason", "The given \"locationBuildingId\" does not exists.");
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = locationService.addLocation(requestBody);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
+    @PutMapping("/{locationId}")
+    public ResponseEntity<Map<String, Object>> editLocation(@PathVariable String locationId,
+                                                            @RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isLocationExist(locationId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* request body validation : LocationModel.json */
+        Map<String, String> validateResultMap = validator.validate("LocationModel.json", requestBody);
+        if (validateResultMap.get("status").equals("fail") || validateResultMap.get("status").equals("error")) {
+            return validator.formatResponseBody(validateResultMap);
+        }
+
+        /* request body parameter existence */
+        /* locationCategoryId */
+        if (!dataExistenceValidator.isLocationCategoryExist((String) requestBody.get("locationCategoryId"))) {
+            responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
+            responseBody.put("reason", "The given \"locationCategoryId\" does not exists.");
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+        }
+
+        /* locationBuildingId */
+        if (!dataExistenceValidator.isBuildingExist((String) requestBody.get("locationBuildingId"))) {
+            responseBody.put("error_code", ErrorCode.POST_INVALID_PARAM);
+            responseBody.put("reason", "The given \"locationBuildingId\" does not exists.");
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = locationService.editLocation(locationId, requestBody);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
+    @DeleteMapping("/{locationId}")
+    public ResponseEntity<Map<String, Object>> deleteLocation(@PathVariable String locationId) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isLocationExist(locationId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = locationService.deleteLocation(locationId);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
 }

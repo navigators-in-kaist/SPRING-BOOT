@@ -12,6 +12,7 @@ public interface ContributionDao {
 
     List<Contribution> getAllContributionList();
     List<Contribution> getContributionListByUserUuid(String uuid);
+    List<Contribution> getContributionListByBuildingId(String buildingId);
 
     void deleteDto(ContributionDto contributionDto);
     void saveDto(ContributionDto contributionDto);

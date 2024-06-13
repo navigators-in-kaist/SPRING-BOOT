@@ -97,6 +97,7 @@ com/navigators/demo/local/locationCategory/service/LocationCategoryService.class
 com/navigators/demo/global/dao/emailSchedule/impl/EmailScheduleDaoImpl.class
 com/navigators/demo/local/auth/service/AuthService.class
 com/navigators/demo/local/location/service/impl/LocationServiceImpl.class
+com/navigators/demo/local/image/service/ImageService.class
 com/navigators/demo/global/dao/image/impl/ImageDaoImpl.class
 com/navigators/demo/global/dto/LocationDto$LocationDtoBuilder.class
 com/navigators/demo/global/dto/SearchHistoryDto.class
@@ -106,9 +107,11 @@ com/navigators/demo/local/building/controller/BuildingController.class
 com/navigators/demo/util/SHA256.class
 com/navigators/demo/global/dto/ImageDto.class
 com/navigators/demo/local/user/service/UserService.class
+com/navigators/demo/local/image/service/impl/ImageServiceImpl.class
 com/navigators/demo/global/repository/AdminRepository.class
 com/navigators/demo/global/entity/User$UserBuilder.class
 com/navigators/demo/scheduler/EmailScheduler.class
+com/navigators/demo/local/image/controller/ImageController.class
 com/navigators/demo/local/search/service/impl/SearchServiceImpl.class
 com/navigators/demo/global/dto/ContributionDto$ContributionDtoBuilder.class
 com/navigators/demo/global/entity/LocationCategory$LocationCategoryBuilder.class

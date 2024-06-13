@@ -9,5 +9,6 @@ public interface BuildingService {
     Map<String, Object> getBuildingList();
     Map<String, Object> addBuilding(Map<String, Object> requestBody);
     Map<String, Object> editBuilding(String buildingId, Map<String, Object> requestBody);
+    Map<String, Object> deleteBuilding(String buildingId);
 
 }

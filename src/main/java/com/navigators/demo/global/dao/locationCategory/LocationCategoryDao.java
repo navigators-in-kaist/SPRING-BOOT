@@ -1,5 +1,6 @@
 package com.navigators.demo.global.dao.locationCategory;
 
+import com.navigators.demo.global.dto.LocationCategoryDto;
 import com.navigators.demo.global.entity.LocationCategory;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface LocationCategoryDao {
 
     List<LocationCategory> getLocationCategoryList();
 
+    void saveDto(LocationCategoryDto locationCategoryDto);
+    void deleteById(String categoryId);
 }

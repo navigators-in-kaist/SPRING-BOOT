@@ -12,5 +12,6 @@ public interface ContributionRepository extends JpaRepository<Contribution, Stri
 
     List<Contribution> findAll();
     List<Contribution> findByContributionUserId(String userUuid);
+    List<Contribution> findByContributionBuildingId(String buildingId);
 
 }

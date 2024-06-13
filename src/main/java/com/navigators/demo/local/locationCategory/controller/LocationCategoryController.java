@@ -1,15 +1,15 @@
 package com.navigators.demo.local.locationCategory.controller;
 
+import com.navigators.demo.codes.ErrorCode;
 import com.navigators.demo.local.locationCategory.service.LocationCategoryService;
 import com.navigators.demo.util.HeaderParser;
 import com.navigators.demo.util.ResponseFormatter;
 import com.navigators.demo.validator.DataExistenceValidator;
 import com.navigators.demo.validator.JsonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +40,60 @@ public class LocationCategoryController {
     }
 
 
+    @PostMapping("")
+    public ResponseEntity<Map<String, Object>> addLocationCategory(@RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> responseBody = new HashMap<>();
 
+        /* request body validation : LocationCategoryModel.json */
+        Map<String, String> validateResultMap = validator.validate("LocationCategoryModel.json", requestBody);
+        if (validateResultMap.get("status").equals("fail") || validateResultMap.get("status").equals("error")) {
+            return validator.formatResponseBody(validateResultMap);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = locationCategoryService.addLocationCategory(requestBody);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<Map<String, Object>> editLocationCategory(@PathVariable String categoryId,
+                                                                    @RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isLocationCategoryExist(categoryId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* request body validation : LocationCategoryModel.json */
+        Map<String, String> validateResultMap = validator.validate("LocationCategoryModel.json", requestBody);
+        if (validateResultMap.get("status").equals("fail") || validateResultMap.get("status").equals("error")) {
+            return validator.formatResponseBody(validateResultMap);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = locationCategoryService.editLocationCategory(categoryId, requestBody);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<Map<String, Object>> deleteLocationCategory(@PathVariable String categoryId,
+                                                                    @RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isLocationCategoryExist(categoryId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = locationCategoryService.deleteLocationCategory(categoryId);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
 
 }

@@ -14,4 +14,6 @@ public interface SearchHistoryDao {
     void deleteDto(SearchHistoryDto searchHistoryDto);
 
     List<SearchHistory> getSearchHistoryByUserUuid(String userUuid);
+    List<SearchHistory> getSearchHistoryByBuildingId(String buildingId);
+    List<SearchHistory> getSearchHistoryByLocationId(String locationId);
 }

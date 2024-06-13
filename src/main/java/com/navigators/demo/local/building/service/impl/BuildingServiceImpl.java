@@ -2,16 +2,14 @@ package com.navigators.demo.local.building.service.impl;
 
 import com.navigators.demo.codes.ErrorCode;
 import com.navigators.demo.global.dao.building.BuildingDao;
+import com.navigators.demo.global.dao.contribution.ContributionDao;
 import com.navigators.demo.global.dao.image.ImageDao;
 import com.navigators.demo.global.dao.location.LocationDao;
 import com.navigators.demo.global.dao.searchHistory.SearchHistoryDao;
 import com.navigators.demo.global.dao.user.UserDao;
 import com.navigators.demo.global.dao.userSave.UserSaveDao;
 import com.navigators.demo.global.dto.BuildingDto;
-import com.navigators.demo.global.entity.Building;
-import com.navigators.demo.global.entity.Image;
-import com.navigators.demo.global.entity.Location;
-import com.navigators.demo.global.entity.User;
+import com.navigators.demo.global.entity.*;
 import com.navigators.demo.local.building.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +27,7 @@ public class BuildingServiceImpl implements BuildingService {
     private final UserSaveDao userSaveDao;
     private final SearchHistoryDao searchHistoryDao;
     private final LocationDao locationDao;
+    private final ContributionDao contributionDao;
 
     @Autowired
     public BuildingServiceImpl(UserDao userDao,
@@ -36,13 +35,15 @@ public class BuildingServiceImpl implements BuildingService {
                                ImageDao imageDao,
                                UserSaveDao userSaveDao,
                                SearchHistoryDao searchHistoryDao,
-                               LocationDao locationDao) {
+                               LocationDao locationDao,
+                               ContributionDao contributionDao) {
         this.userDao = userDao;
         this.buildingDao = buildingDao;
         this.imageDao = imageDao;
         this.userSaveDao = userSaveDao;
         this.searchHistoryDao = searchHistoryDao;
         this.locationDao = locationDao;
+        this.contributionDao = contributionDao;
     }
 
 
@@ -170,6 +171,74 @@ public class BuildingServiceImpl implements BuildingService {
 
         /* save */
         buildingDao.saveDto(buildingDto);
+
+        /* no error */
+        Map<String, Object> item = new HashMap<>();
+        item.put("success", true);
+        resultMap.put("item", item);
+        resultMap.put("errorCode", ErrorCode.NO_ERROR);
+        resultMap.put("httpStatusCode", HttpStatus.OK);
+        return resultMap;
+    }
+
+
+    @Override
+    public Map<String, Object> deleteBuilding(String buildingId) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        /* get target building */
+        Building targetBuilding = buildingDao.getEntityById(buildingId).get();
+
+        /* delete user saves */
+        List<UserSave> userSaveList = userSaveDao.getSaveListByBuildingId(buildingId);
+        for (UserSave userSave : userSaveList) {
+            userSaveDao.deleteDto(userSave.toDto());
+        }
+
+        /* delete search history */
+        List<SearchHistory> searchHistoryList = searchHistoryDao.getSearchHistoryByBuildingId(buildingId);
+        for (SearchHistory searchHistory : searchHistoryList) {
+            searchHistoryDao.deleteDto(searchHistory.toDto());
+        }
+
+        /* delete images */
+        List<Image> imageList = imageDao.getImageList("building", buildingId);
+        for (Image image : imageList) {
+            imageDao.deleteDto(image.toDto());
+        }
+
+        /* delete contributions */
+        List<Contribution> contributionList = contributionDao.getContributionListByBuildingId(buildingId);
+        for (Contribution contribution : contributionList) {
+            contributionDao.deleteDto(contribution.toDto());
+        }
+
+        /* delete locations */
+        List<Location> locationList = locationDao.getLocationListByBuildingId(buildingId);
+        for (Location location : locationList) {
+            /** sub deletion : location */
+
+            /* delete user saves */
+            List<UserSave> locationUserSaveList = userSaveDao.getSaveListByLocationId(location.getLocationId());
+            for (UserSave userSave : locationUserSaveList) {
+                userSaveDao.deleteDto(userSave.toDto());
+            }
+
+            /* delete images */
+            List<Image> locationImageList = imageDao.getImageList("location", location.getLocationId());
+            for (Image image : locationImageList) {
+                imageDao.deleteDto(image.toDto());
+            }
+
+            /* delete search history */
+            List<SearchHistory> locationSearchHistory = searchHistoryDao.getSearchHistoryByLocationId(location.getLocationId());
+            for (SearchHistory searchHistory : locationSearchHistory) {
+                searchHistoryDao.deleteDto(searchHistory.toDto());
+            }
+        }
+
+        /* delete target building */
+        buildingDao.deleteDto(targetBuilding.toDto());
 
         /* no error */
         Map<String, Object> item = new HashMap<>();

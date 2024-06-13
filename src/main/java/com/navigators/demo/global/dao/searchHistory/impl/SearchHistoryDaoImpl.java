@@ -72,4 +72,13 @@ public class SearchHistoryDaoImpl implements SearchHistoryDao {
         return searchHistoryRepository.findBySearchHistoryUserIdOrderByCreatedAtDesc(userUuid);
     }
 
+    @Override
+    public List<SearchHistory> getSearchHistoryByBuildingId(String buildingId) {
+        return searchHistoryRepository.findBySearchHistoryBuildingId(buildingId);
+    }
+
+    @Override
+    public List<SearchHistory> getSearchHistoryByLocationId(String locationId) {
+        return searchHistoryRepository.findBySearchHistoryLocationId(locationId);
+    }
 }

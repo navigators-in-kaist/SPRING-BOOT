@@ -7,6 +7,7 @@ import com.navigators.demo.global.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -49,5 +50,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void saveUser(UserDto userDto) {
         userRepository.save(userDto.toEntity());
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userRepository.findAll();
     }
 }

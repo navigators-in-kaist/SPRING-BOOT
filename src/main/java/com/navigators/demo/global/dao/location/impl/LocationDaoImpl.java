@@ -1,6 +1,7 @@
 package com.navigators.demo.global.dao.location.impl;
 
 import com.navigators.demo.global.dao.location.LocationDao;
+import com.navigators.demo.global.dto.LocationDto;
 import com.navigators.demo.global.entity.Location;
 import com.navigators.demo.global.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +45,13 @@ public class LocationDaoImpl implements LocationDao {
         return locationRepository.findByLocationBuildingId(buildingId);
     }
 
+    @Override
+    public void saveDto(LocationDto locationDto) {
+        locationRepository.save(locationDto.toEntity());
+    }
+
+    @Override
+    public void deleteDto(LocationDto locationDto) {
+        locationRepository.delete(locationDto.toEntity());
+    }
 }

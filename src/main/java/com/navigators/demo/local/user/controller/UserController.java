@@ -163,4 +163,30 @@ public class UserController {
         return responseFormatter.getMapResponseEntity(responseBody, resultMap);
     }
 
+
+    @GetMapping("")
+    public ResponseEntity<Map<String, Object>> getUserList() {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* service call */
+        Map<String, Object> resultMap = userService.getUserList();
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Map<String, Object>> deleteUser(@PathVariable String userId) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* check path variable */
+        if (!dataExistenceValidator.isUserExist(userId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = userService.deleteUser(userId);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
 }

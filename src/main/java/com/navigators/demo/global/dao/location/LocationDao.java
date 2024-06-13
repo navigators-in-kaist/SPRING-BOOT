@@ -1,5 +1,6 @@
 package com.navigators.demo.global.dao.location;
 
+import com.navigators.demo.global.dto.LocationDto;
 import com.navigators.demo.global.entity.Location;
 
 import java.util.List;
@@ -14,5 +15,8 @@ public interface LocationDao {
     List<Location> getLocationListByBuildingId(String buildingId);
 
     Integer getCountByCategoryId(String categoryId);
+
+    void saveDto(LocationDto locationDto);
+    void deleteDto(LocationDto locationDto);
 
 }

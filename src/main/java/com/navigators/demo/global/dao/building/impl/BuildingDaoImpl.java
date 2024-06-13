@@ -59,4 +59,8 @@ public class BuildingDaoImpl implements BuildingDao {
         buildingRepository.save(buildingDto.toEntity());
     }
 
+    @Override
+    public void deleteDto(BuildingDto buildingDto) {
+        buildingRepository.delete(buildingDto.toEntity());
+    }
 }

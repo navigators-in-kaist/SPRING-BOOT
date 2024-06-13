@@ -5,8 +5,11 @@ import com.navigators.demo.codes.ContributionType;
 import com.navigators.demo.codes.ErrorCode;
 import com.navigators.demo.global.dao.building.BuildingDao;
 import com.navigators.demo.global.dao.contribution.ContributionDao;
+import com.navigators.demo.global.dao.location.LocationDao;
 import com.navigators.demo.global.dao.user.UserDao;
+import com.navigators.demo.global.dto.BuildingDto;
 import com.navigators.demo.global.dto.ContributionDto;
+import com.navigators.demo.global.dto.LocationDto;
 import com.navigators.demo.global.entity.Building;
 import com.navigators.demo.global.entity.Contribution;
 import com.navigators.demo.global.entity.User;
@@ -27,14 +30,17 @@ public class ContributionServiceImpl implements ContributionService {
     private final ContributionDao contributionDao;
     private final UserDao userDao;
     private final BuildingDao buildingDao;
+    private final LocationDao locationDao;
 
     @Autowired
     public ContributionServiceImpl(ContributionDao contributionDao,
                                    UserDao userDao,
-                                   BuildingDao buildingDao) {
+                                   BuildingDao buildingDao,
+                                   LocationDao locationDao) {
         this.contributionDao = contributionDao;
         this.userDao = userDao;
         this.buildingDao = buildingDao;
+        this.locationDao = locationDao;
     }
 
     @Override
@@ -216,6 +222,92 @@ public class ContributionServiceImpl implements ContributionService {
         return resultMap;
     }
 
+    @Override
+    public Map<String, Object> approveContribution(String contributionId) {
+        Map<String, Object> resultMap = new HashMap<>();
 
+        /* get target contribution */
+        Contribution targetContribution = contributionDao.getEntityById(contributionId).get();
+
+        /* check status */
+        if (!targetContribution.getContributionStatus().equals(ContributionStatusCode.WAIT_FOR_ACCEPT)) {
+            resultMap.put("errorCode", ErrorCode.POST_INVALID_PARAM);
+            resultMap.put("reason", "The contribution is already approved or rejected.");
+            resultMap.put("httpStatusCode", HttpStatus.BAD_REQUEST);
+            return resultMap;
+        }
+
+        /* craft a new dto (building or location) */
+        if (targetContribution.getContributionType().equals(ContributionType.BUILDING)) {
+            BuildingDto buildingDto = BuildingDto.builder()
+                    .buildingId(UUID.randomUUID().toString())
+                    .officialCode(targetContribution.getOfficialCode())
+                    .buildingName(targetContribution.getName())
+                    .buildingAlias(targetContribution.getAlias())
+                    .description(targetContribution.getDescription())
+                    .maxFloor(targetContribution.getMaxFloor())
+                    .longitude(targetContribution.getLongitude())
+                    .latitude(targetContribution.getLatitude())
+                    .build();
+            buildingDao.saveDto(buildingDto);
+        } else {
+            LocationDto locationDto = LocationDto.builder()
+                    .locationId(UUID.randomUUID().toString())
+                    .locationName(targetContribution.getName())
+                    .locationFloor(targetContribution.getFloor())
+                    .description(targetContribution.getDescription())
+                    .roomNumber(targetContribution.getRoomNumber())
+                    .locationBuildingId(targetContribution.getContributionBuildingId())
+                    .locationCategoryId(targetContribution.getContributionLocationCategoryId())
+                    .build();
+            locationDao.saveDto(locationDto);
+        }
+
+        /* contribution dto value set up */
+        targetContribution.setContributionStatus(ContributionStatusCode.ACCEPTED);
+        targetContribution.setApprovedAt(LocalDateTime.now());
+
+        /* save */
+        contributionDao.saveDto(targetContribution.toDto());
+
+        /* no error */
+        Map<String, Object> item = new HashMap<>();
+        item.put("success", true);
+        resultMap.put("item", item);
+        resultMap.put("errorCode", ErrorCode.NO_ERROR);
+        resultMap.put("httpStatusCode", HttpStatus.OK);
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> rejectContribution(String contributionId) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        /* get target contribution */
+        Contribution targetContribution = contributionDao.getEntityById(contributionId).get();
+
+        /* check status */
+        if (!targetContribution.getContributionStatus().equals(ContributionStatusCode.WAIT_FOR_ACCEPT)) {
+            resultMap.put("errorCode", ErrorCode.POST_INVALID_PARAM);
+            resultMap.put("reason", "The contribution is already approved or rejected.");
+            resultMap.put("httpStatusCode", HttpStatus.BAD_REQUEST);
+            return resultMap;
+        }
+
+        /* contribution dto value set up */
+        targetContribution.setContributionStatus(ContributionStatusCode.REJECTED);
+        targetContribution.setApprovedAt(null);
+
+        /* save */
+        contributionDao.saveDto(targetContribution.toDto());
+
+        /* no error */
+        Map<String, Object> item = new HashMap<>();
+        item.put("success", true);
+        resultMap.put("item", item);
+        resultMap.put("errorCode", ErrorCode.NO_ERROR);
+        resultMap.put("httpStatusCode", HttpStatus.OK);
+        return resultMap;
+    }
 
 }

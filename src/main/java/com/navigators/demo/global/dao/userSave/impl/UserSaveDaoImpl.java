@@ -7,6 +7,7 @@ import com.navigators.demo.global.repository.UserSaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -32,6 +33,16 @@ public class UserSaveDaoImpl implements UserSaveDao {
     @Override
     public void deleteDto(UserSaveDto userSaveDto) {
         userSaveRepository.delete(userSaveDto.toEntity());
+    }
+
+    @Override
+    public List<UserSave> getSaveListByBuildingId(String buildingId) {
+        return userSaveRepository.findByUserSaveBuildingId(buildingId);
+    }
+
+    @Override
+    public List<UserSave> getSaveListByLocationId(String locationId) {
+        return userSaveRepository.findByUserSaveLocationId(locationId);
     }
 
 }
