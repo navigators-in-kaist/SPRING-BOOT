@@ -12,6 +12,7 @@ com/navigators/demo/global/entity/Image$ImageBuilder.class
 com/navigators/demo/global/entity/Admin$AdminBuilder.class
 com/navigators/demo/global/dao/admin/AdminDao.class
 com/navigators/demo/global/dto/BuildingDto$BuildingDtoBuilder.class
+com/navigators/demo/local/admin/service/impl/AdminServiceImpl.class
 com/navigators/demo/local/route/service/RouteService.class
 com/navigators/demo/global/repository/LocationCategoryRepository.class
 com/navigators/demo/local/route/controller/RouteController.class
@@ -37,6 +38,7 @@ com/navigators/demo/global/dto/ProveTrialDto.class
 com/navigators/demo/local/locationCategory/service/impl/LocationCategoryServiceImpl.class
 com/navigators/demo/global/entity/Contribution$ContributionBuilder.class
 com/navigators/demo/global/entity/UserSave$UserSaveBuilder.class
+com/navigators/demo/local/admin/controller/AdminController.class
 com/navigators/demo/global/dto/EmailScheduleDto.class
 com/navigators/demo/codes/ErrorCode.class
 com/navigators/demo/global/dto/UserSaveDto$UserSaveDtoBuilder.class
@@ -85,6 +87,7 @@ com/navigators/demo/validator/JsonValidator.class
 com/navigators/demo/global/entity/LocationCategory.class
 com/navigators/demo/global/repository/EmailScheduleRepository.class
 com/navigators/demo/local/locationCategory/controller/LocationCategoryController.class
+com/navigators/demo/local/admin/service/AdminService.class
 com/navigators/demo/DemoApplication.class
 com/navigators/demo/local/search/service/SearchService.class
 com/navigators/demo/adapter/api/keycloak/KeycloakAPI.class

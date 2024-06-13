@@ -129,6 +129,8 @@ public class AuthServiceImpl implements AuthService {
             _api.refreshAccessToken();
             /* add user */
             _api.addUser((String) requestBody.get("userId"), (String) requestBody.get("password"));
+            /* role mapping */
+            _api.addAppClientRoleMappingForUnProven(_api.getUserUuid((String) requestBody.get("userId")));
         } catch (Exception e) {
             resultMap.put("errorCode", ErrorCode.OAUTH_ADD_USER_FAIL);
             resultMap.put("reason", "Failed to add a new user into auth client.");

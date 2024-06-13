@@ -82,4 +82,54 @@ public class BuildingController {
         return responseFormatter.getMapResponseEntity(responseBody, resultMap);
     }
 
+
+    @GetMapping("")
+    public ResponseEntity<Map<String, Object>> getBuildingList() {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* service call */
+        Map<String, Object> resultMap = buildingService.getBuildingList();
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
+    @PostMapping("")
+    public ResponseEntity<Map<String, Object>> addBuilding(@RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* request body validation : BuildingModel.json */
+        Map<String, String> validateResultMap = validator.validate("BuildingModel.json", requestBody);
+        if (validateResultMap.get("status").equals("fail") || validateResultMap.get("status").equals("error")) {
+            return validator.formatResponseBody(validateResultMap);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = buildingService.addBuilding(requestBody);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
+
+    @PutMapping("/{buildingId}")
+    public ResponseEntity<Map<String, Object>> editBuilding(@PathVariable String buildingId,
+                                                            @RequestBody Map<String, Object> requestBody) {
+        Map<String, Object> responseBody = new HashMap<>();
+
+        /* path variable check */
+        if (!dataExistenceValidator.isBuildingExist(buildingId)) {
+            responseBody.put("error_code", ErrorCode.RESOURCE_NOT_EXIST);
+            responseBody.put("reason", "There is no resource for the path.");
+            return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+        }
+
+        /* request body validation : BuildingModel.json */
+        Map<String, String> validateResultMap = validator.validate("BuildingModel.json", requestBody);
+        if (validateResultMap.get("status").equals("fail") || validateResultMap.get("status").equals("error")) {
+            return validator.formatResponseBody(validateResultMap);
+        }
+
+        /* service call */
+        Map<String, Object> resultMap = buildingService.editBuilding(buildingId, requestBody);
+        return responseFormatter.getMapResponseEntity(responseBody, resultMap);
+    }
+
 }

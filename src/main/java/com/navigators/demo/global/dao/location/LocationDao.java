@@ -11,6 +11,7 @@ public interface LocationDao {
 
     List<Location> getLocationListByCategoryId(String categoryId);
     List<Location> searchLocationByPayload(String payload);
+    List<Location> getLocationListByBuildingId(String buildingId);
 
     Integer getCountByCategoryId(String categoryId);
 

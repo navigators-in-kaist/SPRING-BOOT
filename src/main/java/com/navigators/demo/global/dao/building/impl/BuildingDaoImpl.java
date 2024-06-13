@@ -1,6 +1,7 @@
 package com.navigators.demo.global.dao.building.impl;
 
 import com.navigators.demo.global.dao.building.BuildingDao;
+import com.navigators.demo.global.dto.BuildingDto;
 import com.navigators.demo.global.entity.Building;
 import com.navigators.demo.global.repository.BuildingRepository;
 import com.navigators.demo.global.repository.ContributionRepository;
@@ -46,6 +47,16 @@ public class BuildingDaoImpl implements BuildingDao {
     @Override
     public List<Building> searchByPayload(String payload) {
         return buildingRepository.findByOfficialCodeContainingOrBuildingNameContainingOrBuildingAliasContaining(payload, payload, payload);
+    }
+
+    @Override
+    public List<Building> getAll() {
+        return buildingRepository.findAll();
+    }
+
+    @Override
+    public void saveDto(BuildingDto buildingDto) {
+        buildingRepository.save(buildingDto.toEntity());
     }
 
 }

@@ -1,0 +1,15 @@
+{
+  "type" : "object",
+  "properties" : {
+    "adminId" : {
+      "type" : "string"
+    },
+    "adminName" : {
+      "type" : "string"
+    },
+    "adminPassword" : {
+      "type" : "string"
+    }
+  },
+  "required" : ["adminName"]
+}

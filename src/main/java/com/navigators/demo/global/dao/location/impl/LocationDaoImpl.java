@@ -39,4 +39,9 @@ public class LocationDaoImpl implements LocationDao {
         return locationRepository.findByLocationCategoryId(categoryId).size();
     }
 
+    @Override
+    public List<Location> getLocationListByBuildingId(String buildingId) {
+        return locationRepository.findByLocationBuildingId(buildingId);
+    }
+
 }

@@ -6,7 +6,7 @@ public class RandomStringGenerator {
     private static final String NUMERIC_CHARACTERS = "0123456789";
     private static final Random RANDOM = new Random();
 
-    public static String generate(int length) {
+    public String generate(int length) {
         StringBuilder result = new StringBuilder(length);
 
         for (int i = 0; i < length; i++) {

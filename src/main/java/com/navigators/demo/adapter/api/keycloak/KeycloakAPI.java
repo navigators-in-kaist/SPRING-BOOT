@@ -282,6 +282,62 @@ public class KeycloakAPI {
         }
     }
 
+    public void addAppClientRoleMappingForUnProven(String userUuid) throws Exception {
+        RestTemplate rt = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        String appUserRoleObj = "[{"
+                + "\"id\" :"
+                + "\"" + this.getUuidOfAppRole(UNPROVEN_USER) + "\""
+                + ",\"name\" :"
+                + "\"" + UNPROVEN_USER + "\""
+                + "}]";
+        String requestBody = appUserRoleObj;
+        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+        headers.add("Content-Type", "application/json");
+        headers.add("Authorization", "Bearer " + this.accessToken);
+        try {
+            ResponseEntity<Map> response = rt.exchange(
+                    apiBaseUrl + "/admin/realms/NAV/users/" + userUuid + "/role-mappings/clients/" + appClientUuid,
+                    HttpMethod.POST,
+                    entity,
+                    Map.class
+            );
+            if (!response.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+                throw new Exception("The POST response status code is " + response.getStatusCode());
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public void addAppClientRoleMappingForAdmin(String userUuid) throws Exception {
+        RestTemplate rt = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        String appUserRoleObj = "[{"
+                + "\"id\" :"
+                + "\"" + this.getUuidOfAppRole("admin") + "\""
+                + ",\"name\" :"
+                + "\"" + "admin" + "\""
+                + "}]";
+        String requestBody = appUserRoleObj;
+        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+        headers.add("Content-Type", "application/json");
+        headers.add("Authorization", "Bearer " + this.accessToken);
+        try {
+            ResponseEntity<Map> response = rt.exchange(
+                    apiBaseUrl + "/admin/realms/NAV/users/" + userUuid + "/role-mappings/clients/" + appClientUuid,
+                    HttpMethod.POST,
+                    entity,
+                    Map.class
+            );
+            if (!response.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+                throw new Exception("The POST response status code is " + response.getStatusCode());
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public void changePassword(String userUuid, String newPassword) throws Exception {
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
