@@ -80,8 +80,7 @@ public class LocationCategoryController {
     }
 
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Map<String, Object>> deleteLocationCategory(@PathVariable String categoryId,
-                                                                    @RequestBody Map<String, Object> requestBody) {
+    public ResponseEntity<Map<String, Object>> deleteLocationCategory(@PathVariable String categoryId) {
         Map<String, Object> responseBody = new HashMap<>();
 
         /* path variable check */
