@@ -135,7 +135,7 @@ public class SearchServiceImpl implements SearchService {
                     0.0,
                     targetCategory.getCategoryName(),
                     targetBuilding.getBuildingName(),
-                    targetBuilding.getBuildingAlias(),
+                    targetBuilding.getOfficialCode(),
                     targetBuilding.getLongitude(),
                     targetBuilding.getLatitude()
             );
