@@ -235,6 +235,8 @@ public class BuildingServiceImpl implements BuildingService {
             for (SearchHistory searchHistory : locationSearchHistory) {
                 searchHistoryDao.deleteDto(searchHistory.toDto());
             }
+
+            locationDao.deleteDto(location.toDto());
         }
 
         /* delete target building */
