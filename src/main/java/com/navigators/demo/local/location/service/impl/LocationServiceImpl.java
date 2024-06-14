@@ -149,6 +149,10 @@ public class LocationServiceImpl implements LocationService {
                 .locationBuildingId((String) requestBody.get("locationBuildingId"))
                 .build();
 
+        if (requestBody.get("roomNumber") != null) {
+            locationDto.setRoomNumber((String) requestBody.get("roomNumber"));
+        }
+
         /* save */
         locationDao.saveDto(locationDto);
 
@@ -182,6 +186,10 @@ public class LocationServiceImpl implements LocationService {
         locationDto.setDescription((String) requestBody.get("description"));
         locationDto.setLocationCategoryId((String) requestBody.get("locationCategoryId"));
         locationDto.setLocationBuildingId((String) requestBody.get("locationBuildingId"));
+
+        if (requestBody.get("roomNumber") != null) {
+            locationDto.setRoomNumber((String) requestBody.get("roomNumber"));
+        }
 
         /* save */
         locationDao.saveDto(locationDto);
